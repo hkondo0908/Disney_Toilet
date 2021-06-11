@@ -8,6 +8,7 @@ defmodule DisneyToilet.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {Toilet.Repo, []}
       # Starts a worker by calling: DisneyToilet.Worker.start_link(arg)
       # {DisneyToilet.Worker, arg}
     ]
