@@ -30,14 +30,8 @@ defmodule Toilet.Toilet do
     end)
   end
 
-  def is_near? do
-    x = IO.gets("x>")
-    |> String.trim()
-    |> String.to_float()
-    y = IO.gets("y>")
-    |> String.trim()
-    |> String.to_float()
-
+  def is_near?(list) do
+    {x,y} = list
     data = Toilet.Toilet |> Toilet.Repo.all
     |> Enum.map(&Map.take(&1,[:name,:latitude,:longitude]))
     Enum.map(data, fn %{name: name,latitude: lat, longitude: lon} ->
@@ -46,10 +40,16 @@ defmodule Toilet.Toilet do
       end
     end)
     |> Enum.filter(& &1)
-    |> Enum.each(&IO.puts(&1))
-
-
+    |> Enum.each(&IO.puts("近くに"<>&1<>"のトイレがあります"))
   end
 
-
+  def is_near? do
+    x = IO.gets("x>")
+    |> String.trim()
+    |> String.to_float()
+    y = IO.gets("y>")
+    |> String.trim()
+    |> String.to_float()
+    is_near?({x,y})
+  end
 end
